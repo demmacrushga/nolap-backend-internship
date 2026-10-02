@@ -39,6 +39,7 @@ class Order(models.Model):
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_STATUS_PENDING
     )
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
 class Address(models.Model):
     street = models.CharField(max_length=255)
@@ -54,6 +55,12 @@ class Product(models.Model):
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey('Collection', on_delete=models.PROTECT)
     promotions = models.ManyToManyField('Promotion', blank=True)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.PositiveSmallIntegerField()
+    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
 
 class Promotion(models.Model):
     description = models.CharField(max_length=255)

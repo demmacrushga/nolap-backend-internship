@@ -1,12 +1,13 @@
+from itertools import product
+
 from django.shortcuts import render
 from django.http import HttpResponse
+from store.models import Product
+from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
-def calculate() :
-    x = 1
-    y = 2
-    return x 
 
 def say_hello(request) :
-    x = calculate()
-    return render(request, 'hello.html', {'name': 'Edith'})
+
+    exists = Product.objects.filter(pk=0).exists()
+
+    return render(request, 'hello.html', {'name': 'Edith', 'exists': exists})
