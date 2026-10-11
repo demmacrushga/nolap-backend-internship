@@ -1,0 +1,12 @@
+# Database (contains your superuser password hash)
+db.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets and local config
+.env
+
+# Editor
+.vscode/
